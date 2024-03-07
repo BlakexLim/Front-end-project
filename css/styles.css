@@ -3,17 +3,13 @@
   src: url('../fonts/soloistoutline-v6lw-webfont.woff');
 }
 
-* {
-  box-sizing: border-box;
-}
-
 .body {
   background-color: rgba(3, 18, 29, 1);
 }
 
 .hero {
   background-image: url('../images/xwing_dogfight.jpg');
-  background-size: 100%;
+  background-size: cover;
   background-repeat: no-repeat;
   text-align: center;
 }
@@ -21,8 +17,7 @@
 .container {
   display: flex;
   justify-content: center;
-  padding: 3rem;
-  width: 100%;
+  margin: auto;
 }
 
 .title {
@@ -36,7 +31,15 @@
   font-family: SoloistOutline, sans-serif;
 }
 
-.column-one-third {
-  display: flex;
-  justify-content: end;
+.column-two-third {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.icon-container {
+  text-align: right;
+  padding-right: 2rem;
+  position: sticky;
+  top: 2rem;
+  color: rgba(227, 205, 0, 1);
 }
