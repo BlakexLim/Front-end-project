@@ -1,0 +1,42 @@
+@font-face {
+  font-family: SoloistOutline;
+  src: url('../fonts/soloistoutline-v6lw-webfont.woff');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.body {
+  background-color: rgba(3, 18, 29, 1);
+}
+
+.hero {
+  background-image: url('../images/xwing_dogfight.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(7, 7, 7, 0.082);
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  font-family: SoloistOutline, sans-serif;
+}
+
+.column-one-third {
+  display: flex;
+  justify-content: end;
+}
