@@ -3,6 +3,11 @@
   src: url('../fonts/soloistoutline-v6lw-webfont.woff');
 }
 
+@font-face {
+  font-family: SFDistantGalaxy;
+  src: url('../fonts/sfdistantgalaxy-0l3d-webfont.woff');
+}
+
 .body {
   background-color: rgba(3, 18, 29, 1);
 }
@@ -41,5 +46,19 @@
   padding-right: 2rem;
   position: sticky;
   top: 2rem;
+  color: rgba(227, 205, 0, 1);
+}
+
+.ship-list {
+  background-color: rgba(3, 18, 29, 1);
+  display: flex;
+  max-width: 100%;
+  justify-content: space-evenly;
+  padding-top: 2rem;
+}
+
+h2 {
+  font-family: SFDistantGalaxy, sans-serif;
+  letter-spacing: 1rem;
   color: rgba(227, 205, 0, 1);
 }
