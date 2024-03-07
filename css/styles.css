@@ -8,12 +8,8 @@
   src: url('../fonts/sfdistantgalaxy-0l3d-webfont.woff');
 }
 
-.body {
-  background-color: rgba(3, 18, 29, 1);
-}
-
 .hero {
-  background-image: url('../images/xwing_dogfight.jpg');
+  background-image: url('../images/xwing_dogfight_image.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   text-align: center;
@@ -55,10 +51,26 @@
   max-width: 100%;
   justify-content: space-evenly;
   padding-top: 2rem;
+  height: 50vh;
 }
 
 h2 {
   font-family: SFDistantGalaxy, sans-serif;
   letter-spacing: 1rem;
   color: rgba(227, 205, 0, 1);
+}
+
+.column-third {
+  max-width: calc(100% / 3);
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: content-box;
+}
+
+.fa-circle-chevron-right {
+  padding-top: 9rem;
+  color: rgba(0, 71, 122, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,11 +1,6 @@
-@media only screen and (width > 576px) {
-  .hero {
-    flex-basis: 100%;
-  }
-}
-
-@media only screen and (width > 768px) {
-  .hero {
-    flex-basis: 100%;
+@media only screen and (width <= 768px) {
+  .column-sm-half {
+    display: block;
+    flex-basis: 50%;
   }
 }
