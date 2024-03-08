@@ -37,12 +37,16 @@
   padding-bottom: 4rem;
 }
 
-.icon-container {
+.fleet-icon {
   text-align: right;
   padding-right: 2rem;
   position: sticky;
   top: 2rem;
   color: rgba(227, 205, 0, 1);
+}
+
+.fleet-icon:hover {
+  color: rgb(159, 144, 4);
 }
 
 .ship-list {
@@ -80,7 +84,7 @@ li {
 
 .ship-data {
   color: rgba(118, 114, 114, 1);
-  line-height: 2rem;
+  line-height: 2.5rem;
 }
 
 .show-clicked {
