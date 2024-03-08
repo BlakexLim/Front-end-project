@@ -92,3 +92,17 @@ li {
   display: flex;
   justify-content: space-evenly;
 }
+
+.add-to-fleet {
+  font-family: SFDistantGalaxy, sans-serif;
+  font-size: medium;
+  letter-spacing: 0.2rem;
+  color: rgba(227, 205, 0, 1);
+  background-color: rgba(3, 18, 29, 1);
+  border-style: none;
+  padding: 0;
+}
+
+.add-to-fleet:hover {
+  color: rgb(159, 144, 4);
+}
