@@ -1,6 +1,0 @@
-@media only screen and (width <= 768px) {
-  .column-sm-half {
-    display: block;
-    flex-basis: 50%;
-  }
-}

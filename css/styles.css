@@ -11,14 +11,13 @@
 .hero {
   background-image: url('../images/xwing_dogfight_image.jpg');
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  text-align: center;
 }
 
 .container {
   display: flex;
   justify-content: center;
-  margin: auto;
 }
 
 .title {
@@ -30,11 +29,12 @@
   height: 16rem;
   border-radius: 50%;
   font-family: SoloistOutline, sans-serif;
+  text-align: center;
 }
 
 .column-two-third {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .icon-container {
@@ -48,6 +48,7 @@
 .ship-list {
   background-color: rgba(3, 18, 29, 1);
   display: flex;
+  flex-wrap: wrap;
   max-width: 100%;
   justify-content: space-evenly;
   padding-top: 2rem;
@@ -58,19 +59,10 @@ h2 {
   font-family: SFDistantGalaxy, sans-serif;
   letter-spacing: 1rem;
   color: rgba(227, 205, 0, 1);
+  text-align: center;
 }
 
-.column-third {
-  max-width: calc(100% / 3);
-  display: flex;
-  flex-wrap: wrap;
+.column-half {
+  max-width: 100%;
   box-sizing: content-box;
-}
-
-.fa-circle-chevron-right {
-  padding-top: 9rem;
-  color: rgba(0, 71, 122, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
