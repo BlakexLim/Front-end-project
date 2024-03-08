@@ -32,7 +32,7 @@
   text-align: center;
 }
 
-.column-two-third {
+.column-title {
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
@@ -50,7 +50,7 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-around;
   padding-top: 2rem;
   height: 50vh;
 }
@@ -63,6 +63,28 @@ h2 {
 }
 
 .column-half {
-  max-width: 100%;
+  max-width: 50%;
   box-sizing: content-box;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.ship-name {
+  color: rgba(255, 255, 255, 1);
+}
+
+.ship-data {
+  font-family: SFDistantGalaxy, sans-serif;
+  font-size: medium;
+  color: rgba(118, 114, 114, 1);
+}
+
+.show-clicked {
+  color: rgba(227, 205, 0, 1);
 }
