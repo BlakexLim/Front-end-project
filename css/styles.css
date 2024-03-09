@@ -78,6 +78,7 @@ li {
 
 .ship-name {
   font-size: x-large;
+  letter-spacing: 0.2rem;
   color: rgba(255, 255, 255, 1);
   text-align: center;
 }
