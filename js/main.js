@@ -52,6 +52,7 @@ function getShipName(starship) {
   $shipName.textContent = starship.name;
   $ul?.appendChild($shipName);
 }
+// render starship data on webpage
 function getShipData(starshipData) {
   const $shipContainer = document.createElement('ul');
   const $shipList = document.createElement('li');
@@ -63,11 +64,11 @@ function getShipData(starshipData) {
   const $shipClass = document.createElement('p');
   $shipClass.textContent = starshipData.class;
   const $shipMaxSpd = document.createElement('p');
-  $shipMaxSpd.textContent = String(starshipData.maxAtmSpd);
+  $shipMaxSpd.textContent = starshipData.maxAtmSpd.toString();
   const $shipHypDrive = document.createElement('p');
-  $shipHypDrive.textContent = String(starshipData.hyperDriveRating);
+  $shipHypDrive.textContent = starshipData.hyperDriveRating.toString();
   const $shipCost = document.createElement('p');
-  $shipCost.textContent = String(starshipData.cost);
+  $shipCost.textContent = starshipData.cost.toString();
   const $fleetBtn = document.createElement('button');
   $fleetBtn.setAttribute('class', 'add-to-fleet');
   $fleetBtn.textContent = 'Add to fleet';
