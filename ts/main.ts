@@ -6,18 +6,18 @@ interface StarShipData {
   model: string;
   manufacturer: string;
   class: string;
-  maxAtmSpd: number;
-  hyperDriveRating: number;
-  cost: number;
+  maxAtmSpd: string;
+  hyperDriveRating: string;
+  cost: string;
   fleetBtn: string;
 }
 
-const $starShip = document.querySelector('.ship-name');
-if (!$starShip) throw new Error('$starship query failed');
 const $ul = document.querySelector('ul');
 if (!$ul) throw new Error('$ul query failed');
 const $li = document.querySelector('li');
 if (!$li) throw new Error('$li query failed');
+const $rundown = document.querySelector('.rundown');
+if (!$rundown) throw new Error('$rundown query failed');
 
 // $starShip.addEventListener('click', (event: Event) => {
 //   const $eventTarget = event.target as HTMLLIElement;
@@ -27,7 +27,23 @@ if (!$li) throw new Error('$li query failed');
 
 const apiUrl = 'https://www.swapi.tech/api/starships/';
 
-// fetch api data for name of starship
+// async function getStarShip() {
+//   try {
+//     const response = await fetch(apiUrl);
+//     console.log(response);
+//     if (!response.ok) {
+//       throw new Error(`${response.status} failed to fetch data`);
+//     }
+//     const data = await response.json();
+//     return data;
+//   } catch (error) {
+//     console.error('Error fetching data');
+//     throw error
+//   }
+// }
+// getStarShip();
+
+// fetch api data for starship
 fetch(apiUrl)
   .then((response) => {
     if (!response.ok) {
@@ -36,12 +52,11 @@ fetch(apiUrl)
     return response.json();
   })
   .then((data) => {
-    console.log(data);
     data.results.forEach((starship: StarShipName) => {
       getShipName(starship);
     });
-    data.results.forEach((starship: StarShipData) => {
-      getShipData(starship);
+    data.results.forEach((starshipData: StarShipData) => {
+      $rundown.append(getShipData(starshipData));
     });
   })
   .catch((error) => {
@@ -54,47 +69,43 @@ function getShipName(starship: StarShipName): void {
   $shipName.setAttribute('class', 'ship-name');
   $shipName.textContent = starship.name;
   $ul?.appendChild($shipName);
-  console.log($shipName);
 }
 
-function getShipData(starship: StarShipData): void {
-  const $shipModel = document.createElement('li');
-  $shipModel.setAttribute('class', 'ship-data');
-  $shipModel.textContent = starship.model;
+function getShipData(starshipData: StarShipData): HTMLUListElement {
+  const $shipContainer = document.createElement('ul');
 
-  const $shipManufacturer = document.createElement('li');
-  $shipManufacturer.setAttribute('class', 'ship-data');
-  $shipManufacturer.textContent = starship.manufacturer;
+  const $shipList = document.createElement('li');
+  $shipList.setAttribute('class', 'ship-data');
 
-  const $shipClass = document.createElement('li');
-  $shipClass.setAttribute('class', 'ship-data');
-  $shipClass.textContent = starship.class;
+  const $shipModel = document.createElement('p');
+  $shipModel.textContent = starshipData.model;
 
-  const $shipMaxSpd = document.createElement('li');
-  $shipMaxSpd.setAttribute('class', 'ship-data');
-  $shipMaxSpd.value = starship.maxAtmSpd;
+  const $shipManufacturer = document.createElement('p');
+  $shipManufacturer.textContent = starshipData.manufacturer;
 
-  const $shipHypDrive = document.createElement('li');
-  $shipHypDrive.setAttribute('class', 'ship-data');
-  $shipHypDrive.value = starship.hyperDriveRating;
+  const $shipClass = document.createElement('p');
+  $shipClass.textContent = starshipData.class;
 
-  const $shipCost = document.createElement('li');
-  $shipCost.setAttribute('class', 'ship-data');
-  $shipCost.value = starship.cost;
+  const $shipMaxSpd = document.createElement('p');
+  $shipMaxSpd.textContent = String(starshipData.maxAtmSpd);
 
-  const $shipData = document.createElement('li');
-  $shipData.setAttribute('class', 'ship-data');
+  const $shipHypDrive = document.createElement('p');
+  $shipHypDrive.textContent = String(starshipData.hyperDriveRating);
+
+  const $shipCost = document.createElement('p');
+  $shipCost.textContent = String(starshipData.cost);
 
   const $fleetBtn = document.createElement('button');
   $fleetBtn.setAttribute('class', 'add-to-fleet');
   $fleetBtn.textContent = 'Add to fleet';
 
-  $ul?.appendChild($shipModel);
-  $shipModel.append($shipManufacturer);
-  $shipManufacturer.append($shipClass);
-  $shipClass.append($shipMaxSpd);
-  $shipMaxSpd.append($shipHypDrive);
-  $shipHypDrive.append($shipCost);
-  $shipCost.append($shipData);
-  $shipData.appendChild($fleetBtn);
+  $shipContainer.appendChild($shipList);
+  $shipList.appendChild($shipModel);
+  $shipList.append($shipManufacturer);
+  $shipList.append($shipClass);
+  $shipList.append($shipMaxSpd);
+  $shipList.append($shipHypDrive);
+  $shipList.append($shipCost);
+  $shipList.append($fleetBtn);
+  return $shipContainer;
 }

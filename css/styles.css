@@ -8,6 +8,10 @@
   src: url('../fonts/sfdistantgalaxy-0l3d-webfont.woff');
 }
 
+body {
+  background-color: rgb(3, 18, 29, 1);
+}
+
 .hero {
   background-image: url('../images/xwing_dogfight_image.jpg');
   background-size: cover;
@@ -24,7 +28,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(7, 7, 7, 0.082);
   width: 16rem;
   height: 16rem;
   border-radius: 50%;
@@ -50,7 +53,6 @@
 }
 
 .ship-list {
-  background-color: rgba(3, 18, 29, 1);
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
@@ -85,6 +87,7 @@ li {
 
 .ship-data {
   color: rgba(118, 114, 114, 1);
+  letter-spacing: 0.1rem;
   line-height: 2.5rem;
 }
 
