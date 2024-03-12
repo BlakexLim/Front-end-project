@@ -1,15 +1,12 @@
 'use strict';
 const $ul = document.querySelector('ul');
 if (!$ul) throw new Error('$ul query failed');
-const $li = document.querySelector('li');
-if (!$li) throw new Error('$li query failed');
-const $renderedLi = document.querySelector('.ship-name');
-if (!$renderedLi) throw new Error('$renderedLi query failed');
 const $rundown = document.querySelector('.rundown');
 if (!$rundown) throw new Error('$rundown query failed');
 const $model = document.getElementsByClassName('.model');
 if (!$model) throw new Error('$model query failed');
 const apiUrl = 'https://www.swapi.tech/api/starships/';
+let shipArr = [];
 // fetch api data for starship
 // retrieve data, store response in array
 // loop thru array to cross ref id and starship name
@@ -20,27 +17,21 @@ async function getStarShip() {
     if (!response.ok) {
       throw new Error(`${response.status} failed to fetch data`);
     }
-    let shipArr = [];
     const data = await response.json();
     data.results.forEach((starship) => {
       $ul?.appendChild(getShipName(starship));
-      shipArr.push(getShipName(starship));
     });
-    console.log(shipArr);
-    for (let i = 0; i < shipArr.length; i++) {
-      if (shipArr[i] === response) {
-      }
-    }
-    // data.results.forEach((starship: StarShipData) => {
-    //   console.log(starship);
-    //   $rundown?.append(getShipData(starship));
-    // })
+    data.results.forEach((starship) => {
+      $rundown?.append(getShipData(starship));
+      shipArr.push(starship);
+    });
   } catch (error) {
     console.error('Error fetching data');
     throw error;
   }
 }
 getStarShip();
+console.log(shipArr);
 // render starship name on webpage
 function getShipName(starship) {
   const $shipName = document.createElement('li');
@@ -59,11 +50,11 @@ function getShipData(starship) {
   const $shipClass = document.createElement('p');
   $shipClass.textContent = starship.class;
   const $shipMaxSpd = document.createElement('p');
-  $shipMaxSpd.textContent = starship.maxAtmSpd.toString();
+  $shipMaxSpd.textContent = starship.maxAtmSpd;
   const $shipHypDrive = document.createElement('p');
-  $shipHypDrive.textContent = starship.hyperDriveRating.toString();
+  $shipHypDrive.textContent = starship.hyperDriveRating;
   const $shipCost = document.createElement('p');
-  $shipCost.textContent = starship.cost.toString();
+  $shipCost.textContent = starship.cost;
   const $fleetBtn = document.createElement('button');
   $fleetBtn.setAttribute('class', 'add-to-fleet');
   $fleetBtn.textContent = 'Add to fleet';
@@ -91,7 +82,12 @@ async function selectShip(uid) {
     throw error;
   }
 }
-selectShip(2);
-$ul.addEventListener('click', (event) => {
+$ul?.addEventListener('click', (event) => {
+  const $eventTarget = event.target;
   console.log(event.target);
+  for (let i = 0; i < shipArr.length; i++) {
+    if (shipArr[i] === $eventTarget) {
+    }
+  }
+  selectShip(2);
 });
