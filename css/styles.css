@@ -28,6 +28,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgba(7, 7, 7, 0.082);
   width: 16rem;
   height: 16rem;
   border-radius: 50%;
