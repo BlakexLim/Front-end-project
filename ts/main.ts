@@ -7,10 +7,10 @@ interface StarShipData {
   uid: string;
   model: string;
   manufacturer: string;
-  class: string;
-  maxAtmSpd: string;
-  hyperDriveRating: string;
-  cost: string;
+  starship_class: string;
+  max_atmosphering_speed: string;
+  hyperdrive_rating: string;
+  cost_in_credits: string;
   fleetBtn: string;
 }
 
@@ -35,7 +35,7 @@ async function getStarShip(): Promise<void> {
       $ul?.appendChild(getShipName(starship));
     });
     data.results.forEach((starship: StarShipData) => {
-      $rundown?.append(getShipData(starship));
+      getShipData(starship);
     });
   } catch (error) {
     console.error('Error fetching data');
@@ -48,7 +48,7 @@ getStarShip();
 function getShipName(starship: StarShipName): HTMLLIElement {
   const $shipName = document.createElement('li');
   $shipName.setAttribute('class', 'ship-name');
-  $shipName.setAttribute('data-uid', starship.uid.toString());
+  $shipName.setAttribute('data-uid', starship.uid);
   $shipName.textContent = starship.name;
   return $shipName;
 }
@@ -57,7 +57,7 @@ function getShipName(starship: StarShipName): HTMLLIElement {
 function getShipData(starship: StarShipData): HTMLLIElement {
   const $shipContainer = document.createElement('li');
   $shipContainer.setAttribute('class', 'ship-data');
-  $shipContainer.setAttribute('data-uid', starship.uid.toString());
+  $shipContainer.setAttribute('data-uid', starship.uid);
 
   const $shipModel = document.createElement('p');
   $shipModel.textContent = `Model: ${starship.model}`;
@@ -66,16 +66,16 @@ function getShipData(starship: StarShipData): HTMLLIElement {
   $shipManufacturer.textContent = `Manufacturer: ${starship.manufacturer}`;
 
   const $shipClass = document.createElement('p');
-  $shipClass.textContent = `Class: ${starship.class}`;
+  $shipClass.textContent = `Class: ${starship.starship_class}`;
 
   const $shipMaxSpd = document.createElement('p');
-  $shipMaxSpd.textContent = `Max Atmospheric Speed: ${starship.maxAtmSpd}`;
+  $shipMaxSpd.textContent = `Max Atmospheric Speed: ${starship.max_atmosphering_speed}`;
 
   const $shipHypDrive = document.createElement('p');
-  $shipHypDrive.textContent = `HyperDrive Rating: ${starship.hyperDriveRating}`;
+  $shipHypDrive.textContent = `HyperDrive Rating: ${starship.hyperdrive_rating}`;
 
   const $shipCost = document.createElement('p');
-  $shipCost.textContent = `Cost: ${starship.cost}`;
+  $shipCost.textContent = `Cost: ${starship.cost_in_credits}`;
 
   const $fleetBtn = document.createElement('button');
   $fleetBtn.setAttribute('class', 'add-to-fleet');
@@ -92,7 +92,7 @@ function getShipData(starship: StarShipData): HTMLLIElement {
 }
 
 // fetch data for specific ship
-async function selectShip(uid: string): Promise<string> {
+async function selectShip(uid: string): Promise<void> {
   const shipApi = `https://www.swapi.tech/api/starships/${uid}`;
   try {
     const response = await fetch(shipApi);
@@ -100,16 +100,15 @@ async function selectShip(uid: string): Promise<string> {
       throw new Error(`Failed to fetch property with ID ${uid}`);
     }
     const propertyData = await response.json();
-    return propertyData;
+    $rundown?.appendChild(getShipData(propertyData.result.properties));
   } catch (error) {
     console.error('Error fetching property data');
     throw error;
   }
 }
-selectShip('2');
 
 $ul?.addEventListener('click', (event: Event) => {
-  const $eventTarget = event.target as HTMLElement;
+  const $eventTarget = event.target as HTMLLIElement;
   const $ships = document.querySelectorAll('.ship-name');
   const $data = document.querySelectorAll('.ship-data');
   if (!$ships) throw new Error('$ships query failed');
@@ -117,7 +116,8 @@ $ul?.addEventListener('click', (event: Event) => {
 
   if ($eventTarget.tagName === 'LI') {
     const eventAttr = $eventTarget.getAttribute('data-uid');
-    // selectShip(eventAttr);
+    if (!eventAttr) return;
+    selectShip(eventAttr);
     console.log(eventAttr);
     // Change text color of selected ship to yellow
     for (let i = 0; i < $ships.length; i++) {
@@ -127,8 +127,12 @@ $ul?.addEventListener('click', (event: Event) => {
         $ships[i].className = 'ship-name';
       }
     }
-    // for (let i = 0; i < $data.length; i++) {
-    //   if ($data[i] === )
-    // }
+    for (let i = 0; i < $data.length; i++) {
+      if ($data[i] === $eventTarget) {
+        $data[i].className = 'ship-data';
+      } else {
+        $data[i].className = 'ship-data hidden';
+      }
+    }
   }
 });

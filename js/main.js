@@ -18,7 +18,7 @@ async function getStarShip() {
       $ul?.appendChild(getShipName(starship));
     });
     data.results.forEach((starship) => {
-      $rundown?.append(getShipData(starship));
+      getShipData(starship);
     });
   } catch (error) {
     console.error('Error fetching data');
@@ -30,7 +30,7 @@ getStarShip();
 function getShipName(starship) {
   const $shipName = document.createElement('li');
   $shipName.setAttribute('class', 'ship-name');
-  $shipName.setAttribute('data-uid', starship.uid.toString());
+  $shipName.setAttribute('data-uid', starship.uid);
   $shipName.textContent = starship.name;
   return $shipName;
 }
@@ -38,19 +38,19 @@ function getShipName(starship) {
 function getShipData(starship) {
   const $shipContainer = document.createElement('li');
   $shipContainer.setAttribute('class', 'ship-data');
-  $shipContainer.setAttribute('data-uid', starship.uid.toString());
+  $shipContainer.setAttribute('data-uid', starship.uid);
   const $shipModel = document.createElement('p');
   $shipModel.textContent = `Model: ${starship.model}`;
   const $shipManufacturer = document.createElement('p');
   $shipManufacturer.textContent = `Manufacturer: ${starship.manufacturer}`;
   const $shipClass = document.createElement('p');
-  $shipClass.textContent = `Class: ${starship.class}`;
+  $shipClass.textContent = `Class: ${starship.starship_class}`;
   const $shipMaxSpd = document.createElement('p');
-  $shipMaxSpd.textContent = `Max Atmospheric Speed: ${starship.maxAtmSpd}`;
+  $shipMaxSpd.textContent = `Max Atmospheric Speed: ${starship.max_atmosphering_speed}`;
   const $shipHypDrive = document.createElement('p');
-  $shipHypDrive.textContent = `HyperDrive Rating: ${starship.hyperDriveRating}`;
+  $shipHypDrive.textContent = `HyperDrive Rating: ${starship.hyperdrive_rating}`;
   const $shipCost = document.createElement('p');
-  $shipCost.textContent = `Cost: ${starship.cost}`;
+  $shipCost.textContent = `Cost: ${starship.cost_in_credits}`;
   const $fleetBtn = document.createElement('button');
   $fleetBtn.setAttribute('class', 'add-to-fleet');
   $fleetBtn.textContent = 'Add to fleet';
@@ -72,7 +72,7 @@ async function selectShip(uid) {
       throw new Error(`Failed to fetch property with ID ${uid}`);
     }
     const propertyData = await response.json();
-    return propertyData;
+    $rundown?.appendChild(getShipData(propertyData.result.properties));
   } catch (error) {
     console.error('Error fetching property data');
     throw error;
@@ -86,7 +86,8 @@ $ul?.addEventListener('click', (event) => {
   if (!$data) throw new Error('$data query failed');
   if ($eventTarget.tagName === 'LI') {
     const eventAttr = $eventTarget.getAttribute('data-uid');
-    // selectShip(eventAttr);
+    if (!eventAttr) return;
+    selectShip(eventAttr);
     console.log(eventAttr);
     // Change text color of selected ship to yellow
     for (let i = 0; i < $ships.length; i++) {
@@ -96,8 +97,12 @@ $ul?.addEventListener('click', (event) => {
         $ships[i].className = 'ship-name';
       }
     }
-    // for (let i = 0; i < $data.length; i++) {
-    //   if ($data[i] === )
-    // }
+    for (let i = 0; i < $data.length; i++) {
+      if ($data[i] === $eventTarget) {
+        $data[i].className = 'ship-data';
+      } else {
+        $data[i].className = 'ship-data hidden';
+      }
+    }
   }
 });

@@ -89,7 +89,7 @@ li {
 .ship-data {
   color: rgba(118, 114, 114, 1);
   letter-spacing: 0.1rem;
-  line-height: 2.5rem;
+  line-height: 1.5rem;
 }
 
 .show-clicked {
