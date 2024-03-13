@@ -1,10 +1,18 @@
 'use strict';
+const $hero = document.querySelector('.hero');
+const $fleet = document.querySelector('.fleet');
+const $shipList = document.querySelector('.ship-list');
 const $ul = document.querySelector('ul');
-if (!$ul) throw new Error('$ul query failed');
 const $rundown = document.querySelector('.rundown');
-if (!$rundown) throw new Error('$rundown query failed');
 const $model = document.getElementsByClassName('.model');
+const $add = document.querySelector('.fa-plus');
+if (!$hero) throw new Error('$hero query failed');
+if (!$fleet) throw new Error('$fleet query failed');
+if (!$shipList) throw new Error('$shipList query failed');
+if (!$ul) throw new Error('$ul query failed');
+if (!$rundown) throw new Error('$rundown query failed');
 if (!$model) throw new Error('$model query failed');
+if (!$add) throw new Error('$recruit query failed');
 const apiUrl = 'https://www.swapi.tech/api/starships/';
 // fetch api data for starship
 async function getStarShip() {
@@ -51,16 +59,7 @@ function getShipData(starship) {
   $shipHypDrive.textContent = `HyperDrive Rating: ${starship.hyperdrive_rating}`;
   const $shipCost = document.createElement('p');
   $shipCost.textContent = `Cost: ${starship.cost_in_credits}`;
-  // const $showModal = document.querySelector('.open-modal');
-  // const $hideModal = document.querySelector('.dismiss-modal');
-  // const $dialog = document.querySelector('dialog');
-  // if (!$showModal) throw new Error('$showModal query failed');
-  // if (!$hideModal) throw new Error('$hideModal query failed');
-  // if (!$dialog) throw new Error('$dialog query failed');
   const $fleetBtn = document.createElement('button');
-  // $fleetBtn.addEventListener('click', () => {
-  //   $dialog.showModal();
-  // })
   $fleetBtn.setAttribute('class', 'add-to-fleet');
   $fleetBtn.textContent = 'Add to fleet';
   $shipContainer.appendChild($shipModel);
@@ -84,7 +83,6 @@ async function selectShip(uid) {
     $rundown?.appendChild(getShipData(propertyData.result.properties));
   } catch (error) {
     console.error('Error fetching property data');
-    throw error;
   }
 }
 // Clicking Starship name will render data on the Rundown section
@@ -114,5 +112,13 @@ $ul?.addEventListener('click', (event) => {
         $data[i].className = 'ship-data hidden';
       }
     }
+  }
+});
+$add.addEventListener('click', (event) => {
+  const $eventTarget = event.target;
+  if ($eventTarget.tagName === 'I') {
+    $fleet.className = 'fleet hidden';
+    $hero.className = 'hero view';
+    $shipList.className = 'ship-list view';
   }
 });

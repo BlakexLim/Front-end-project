@@ -13,11 +13,17 @@ interface StarShipData {
   cost_in_credits: string;
 }
 
+const $hero = document.querySelector('.hero');
+const $fleet = document.querySelector('.fleet');
+const $shipList = document.querySelector('.ship-list');
 const $ul = document.querySelector('ul');
 const $rundown = document.querySelector('.rundown');
 const $model = document.getElementsByClassName('.model');
 const $add = document.querySelector('.fa-plus');
 
+if (!$hero) throw new Error('$hero query failed');
+if (!$fleet) throw new Error('$fleet query failed');
+if (!$shipList) throw new Error('$shipList query failed');
 if (!$ul) throw new Error('$ul query failed');
 if (!$rundown) throw new Error('$rundown query failed');
 if (!$model) throw new Error('$model query failed');
@@ -137,5 +143,14 @@ $ul?.addEventListener('click', (event: Event) => {
         $data[i].className = 'ship-data hidden';
       }
     }
+  }
+});
+
+$add.addEventListener('click', (event: Event) => {
+  const $eventTarget = event.target as HTMLElement;
+  if ($eventTarget.tagName === 'I') {
+    $fleet.className = 'fleet hidden';
+    $hero.className = 'hero view';
+    $shipList.className = 'ship-list view';
   }
 });
