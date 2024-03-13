@@ -76,11 +76,10 @@ ul {
 li {
   list-style-type: none;
   font-family: SFDistantGalaxy, sans-serif;
-  font-size: medium;
 }
 
 .ship-name {
-  font-size: x-large;
+  font-size: 1.5rem;
   letter-spacing: 0.2rem;
   color: rgba(255, 255, 255, 1);
   text-align: center;
@@ -104,7 +103,7 @@ li {
 
 .add-to-fleet {
   font-family: SFDistantGalaxy, sans-serif;
-  font-size: medium;
+  font-size: 1rem;
   letter-spacing: 0.2rem;
   color: rgba(227, 205, 0, 1);
   background-color: rgba(3, 18, 29, 1);

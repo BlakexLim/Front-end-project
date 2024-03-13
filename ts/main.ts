@@ -103,7 +103,6 @@ async function selectShip(uid: string): Promise<void> {
     $rundown?.appendChild(getShipData(propertyData.result.properties));
   } catch (error) {
     console.error('Error fetching property data');
-    throw error;
   }
 }
 
