@@ -6,6 +6,7 @@ const $ul = document.querySelector('ul');
 const $rundown = document.querySelector('.rundown');
 const $model = document.getElementsByClassName('.model');
 const $add = document.querySelector('.fa-plus');
+const $toFleet = document.querySelector('.to-fleet');
 if (!$hero) throw new Error('$hero query failed');
 if (!$fleet) throw new Error('$fleet query failed');
 if (!$shipList) throw new Error('$shipList query failed');
@@ -13,6 +14,7 @@ if (!$ul) throw new Error('$ul query failed');
 if (!$rundown) throw new Error('$rundown query failed');
 if (!$model) throw new Error('$model query failed');
 if (!$add) throw new Error('$recruit query failed');
+if (!$toFleet) throw new Error('$toFleet query failed');
 const apiUrl = 'https://www.swapi.tech/api/starships/';
 // fetch api data for starship
 async function getStarShip() {
@@ -120,5 +122,14 @@ $add.addEventListener('click', (event) => {
     $fleet.className = 'fleet hidden';
     $hero.className = 'hero view';
     $shipList.className = 'ship-list view';
+  }
+});
+$toFleet.addEventListener('click', (event) => {
+  const $eventTarget = event.target;
+  console.log($eventTarget.tagName);
+  if ($eventTarget.tagName === 'I') {
+    $hero.className = 'hero hidden';
+    $shipList.className = 'ship-list hidden';
+    $fleet.className = 'fleet view';
   }
 });
