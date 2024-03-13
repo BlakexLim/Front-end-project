@@ -14,11 +14,14 @@ interface StarShipData {
 }
 
 const $ul = document.querySelector('ul');
-if (!$ul) throw new Error('$ul query failed');
 const $rundown = document.querySelector('.rundown');
-if (!$rundown) throw new Error('$rundown query failed');
 const $model = document.getElementsByClassName('.model');
+const $add = document.querySelector('.fa-plus');
+
+if (!$ul) throw new Error('$ul query failed');
+if (!$rundown) throw new Error('$rundown query failed');
 if (!$model) throw new Error('$model query failed');
+if (!$add) throw new Error('$recruit query failed');
 
 const apiUrl = 'https://www.swapi.tech/api/starships/';
 

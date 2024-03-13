@@ -19,6 +19,12 @@ body {
   background-repeat: no-repeat;
 }
 
+.fleet-hero {
+  width: 100%;
+  object-fit: cover;
+  height: 12rem;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -119,10 +125,17 @@ li {
   display: none;
 }
 
-dialog {
-  border-color: rgba(227, 205, 0, 1);
+.fleet-entry {
+  font-family: SoloistOutline, sans-serif;
+  color: rgba(227, 205, 0, 1);
 }
 
-dialog::backdrop {
-  background-color: rgba(3, 18, 29, 1);
+.empty-fleet,
+.recruit-icon {
+  display: flex;
+  justify-content: center;
+}
+
+.fa-plus:hover {
+  color: rgb(151, 137, 5);
 }
