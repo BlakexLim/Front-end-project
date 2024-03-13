@@ -130,7 +130,7 @@ li {
   color: rgba(227, 205, 0, 1);
 }
 
-.empty-fleet,
+.fleet-page,
 .recruit-icon {
   display: flex;
   justify-content: center;
@@ -138,4 +138,17 @@ li {
 
 .fa-plus:hover {
   color: rgb(151, 137, 5);
+}
+
+.ol {
+  text-align: center;
+}
+
+span {
+  color: rgba(227, 205, 0, 1);
+}
+
+.fleet-ship {
+  color: rgba(255, 255, 255, 1);
+  letter-spacing: 0.5rem;
 }

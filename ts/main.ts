@@ -88,7 +88,12 @@ function getShipData(starship: StarShipData): HTMLLIElement {
   $shipCost.textContent = `Cost: ${starship.cost_in_credits}`;
 
   const $fleetBtn = document.createElement('button');
-
+  $fleetBtn.addEventListener('click', (event: Event) => {
+    const $eventTarget = event.target as HTMLElement;
+    if ($eventTarget.tagName === 'BUTTON') {
+      // getShipName(starship);
+    }
+  });
   $fleetBtn.setAttribute('class', 'add-to-fleet');
   $fleetBtn.textContent = 'Add to fleet';
 
