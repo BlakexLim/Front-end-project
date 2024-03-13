@@ -38,7 +38,6 @@ async function getStarShip(): Promise<void> {
     });
   } catch (error) {
     console.error('Error fetching data');
-    throw error;
   }
 }
 getStarShip();
