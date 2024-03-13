@@ -1,0 +1,128 @@
+@font-face {
+  font-family: SoloistOutline;
+  src: url('../fonts/soloistoutline-v6lw-webfont.woff');
+}
+
+@font-face {
+  font-family: SFDistantGalaxy;
+  src: url('../fonts/sfdistantgalaxy-0l3d-webfont.woff');
+}
+
+body {
+  background-color: rgb(3, 18, 29, 1);
+}
+
+.hero {
+  background-image: url('../images/xwing_dogfight_image.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(7, 7, 7, 0.082);
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  font-family: SoloistOutline, sans-serif;
+  text-align: center;
+}
+
+.column-title {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.fleet-icon {
+  text-align: right;
+  padding-right: 2rem;
+  position: sticky;
+  top: 2rem;
+  color: rgba(227, 205, 0, 1);
+}
+
+.fa-book-journal-whills:hover {
+  color: rgb(159, 144, 4);
+}
+
+.ship-list {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  justify-content: space-evenly;
+  padding-top: 2rem;
+  height: 100vh;
+}
+
+h2 {
+  font-family: SFDistantGalaxy, sans-serif;
+  letter-spacing: 1rem;
+  color: rgba(227, 205, 0, 1);
+  text-align: center;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+  font-family: SFDistantGalaxy, sans-serif;
+}
+
+.ship-name {
+  font-size: 1.5rem;
+  letter-spacing: 0.2rem;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+}
+
+.ship-data {
+  color: rgba(118, 114, 114, 1);
+  letter-spacing: 0.1rem;
+  line-height: 1.5rem;
+}
+
+.show-clicked {
+  color: rgba(227, 205, 0, 1);
+}
+
+.pagination {
+  color: rgba(17, 83, 181, 1);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.add-to-fleet {
+  font-family: SFDistantGalaxy, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.2rem;
+  color: rgba(227, 205, 0, 1);
+  background-color: rgba(3, 18, 29, 1);
+  border-style: none;
+  padding: 0;
+}
+
+.add-to-fleet:hover {
+  color: rgb(159, 144, 4);
+}
+
+.hidden {
+  display: none;
+}
+
+dialog {
+  border-color: rgba(227, 205, 0, 1);
+}
+
+dialog::backdrop {
+  background-color: rgba(3, 18, 29, 1);
+}
