@@ -76,17 +76,8 @@ function getShipData(starship: StarShipData): HTMLLIElement {
   const $shipCost = document.createElement('p');
   $shipCost.textContent = `Cost: ${starship.cost_in_credits}`;
 
-  // const $showModal = document.querySelector('.open-modal');
-  // const $hideModal = document.querySelector('.dismiss-modal');
-  // const $dialog = document.querySelector('dialog');
-  // if (!$showModal) throw new Error('$showModal query failed');
-  // if (!$hideModal) throw new Error('$hideModal query failed');
-  // if (!$dialog) throw new Error('$dialog query failed');
-
   const $fleetBtn = document.createElement('button');
-  // $fleetBtn.addEventListener('click', () => {
-  //   $dialog.showModal();
-  // })
+
   $fleetBtn.setAttribute('class', 'add-to-fleet');
   $fleetBtn.textContent = 'Add to fleet';
 
