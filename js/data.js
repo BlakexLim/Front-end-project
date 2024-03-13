@@ -1,2 +1,10 @@
 'use strict';
-/* exported data */
+let todos = [];
+const previousTodosJson = localStorage.getItem('javascript-local-storage');
+if (previousTodosJson !== null) {
+  todos = JSON.parse(previousTodosJson);
+}
+window.addEventListener('beforeunload', () => {
+  const todosJson = JSON.stringify(todos);
+  localStorage.setItem('Javascript-local-storage', todosJson);
+});

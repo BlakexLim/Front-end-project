@@ -119,3 +119,11 @@ li {
 .hidden {
   display: none;
 }
+
+dialog {
+  border-color: rgba(227, 205, 0, 1);
+}
+
+dialog::backdrop {
+  background-color: rgba(3, 18, 29, 1);
+}

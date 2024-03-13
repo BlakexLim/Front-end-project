@@ -51,7 +51,16 @@ function getShipData(starship) {
   $shipHypDrive.textContent = `HyperDrive Rating: ${starship.hyperdrive_rating}`;
   const $shipCost = document.createElement('p');
   $shipCost.textContent = `Cost: ${starship.cost_in_credits}`;
+  // const $showModal = document.querySelector('.open-modal');
+  // const $hideModal = document.querySelector('.dismiss-modal');
+  // const $dialog = document.querySelector('dialog');
+  // if (!$showModal) throw new Error('$showModal query failed');
+  // if (!$hideModal) throw new Error('$hideModal query failed');
+  // if (!$dialog) throw new Error('$dialog query failed');
   const $fleetBtn = document.createElement('button');
+  // $fleetBtn.addEventListener('click', () => {
+  //   $dialog.showModal();
+  // })
   $fleetBtn.setAttribute('class', 'add-to-fleet');
   $fleetBtn.textContent = 'Add to fleet';
   $shipContainer.appendChild($shipModel);
@@ -78,6 +87,7 @@ async function selectShip(uid) {
     throw error;
   }
 }
+// Clicking Starship name will render data on the Rundown section
 $ul?.addEventListener('click', (event) => {
   const $eventTarget = event.target;
   const $ships = document.querySelectorAll('.ship-name');
@@ -88,7 +98,6 @@ $ul?.addEventListener('click', (event) => {
     const eventAttr = $eventTarget.getAttribute('data-uid');
     if (!eventAttr) return;
     selectShip(eventAttr);
-    console.log(eventAttr);
     // Change text color of selected ship to yellow
     for (let i = 0; i < $ships.length; i++) {
       if ($ships[i] === $eventTarget) {
@@ -97,6 +106,7 @@ $ul?.addEventListener('click', (event) => {
         $ships[i].className = 'ship-name';
       }
     }
+    // Show hide Rundown data
     for (let i = 0; i < $data.length; i++) {
       if ($data[i] === $eventTarget) {
         $data[i].className = 'ship-data';
