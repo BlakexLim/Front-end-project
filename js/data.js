@@ -6,11 +6,9 @@ let data = {
 };
 window.addEventListener('beforeunload', () => {
   const storedFleetJson = JSON.stringify(data);
-  localStorage.setItem('Javascript-local-storage', storedFleetJson);
+  localStorage.setItem('StarWars-FleetSim', storedFleetJson);
 });
-const previousStoredFleetJson = localStorage.getItem(
-  'Javascript-local-storage',
-);
+const previousStoredFleetJson = localStorage.getItem('StarWars-FleetSim');
 if (previousStoredFleetJson !== null) {
   data = JSON.parse(previousStoredFleetJson);
 }

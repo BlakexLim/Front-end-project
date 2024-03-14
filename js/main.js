@@ -64,8 +64,10 @@ function getShipData(starship) {
   $shipHypDrive.textContent = `HyperDrive Rating: ${starship.hyperdrive_rating}`;
   const $shipCost = document.createElement('p');
   $shipCost.textContent = `Cost: ${starship.cost_in_credits}`;
-  // listen for click event to add starships to fleet page
+  // add starships and a minus icon for each entry to fleet page, save to localStorage
   const $fleetBtn = document.createElement('button');
+  $fleetBtn.setAttribute('class', 'add-to-fleet');
+  $fleetBtn.textContent = 'Add to fleet';
   $fleetBtn.addEventListener('click', (event) => {
     const $eventTarget = event.target;
     if ($eventTarget.tagName === 'BUTTON') {
@@ -74,17 +76,22 @@ function getShipData(starship) {
           const $recList = document.createElement('li');
           $recList.setAttribute('class', 'fleet-rec');
           $recList.textContent = data.currentShip;
-          $fleetList?.appendChild($recList);
           const $minus = document.createElement('i');
           $minus.setAttribute('class', 'fa-regular fa-square-minus');
+          $minus.addEventListener('click', (event) => {
+            const $eventTarget = event.target;
+            if ($eventTarget.tagName === 'I') {
+              $recList.remove();
+              $minus.remove();
+            }
+          });
+          $fleetList?.appendChild($recList);
           $recList.appendChild($minus);
           data.saveFleet.push(data.fleet[i]);
         }
       }
     }
   });
-  $fleetBtn.setAttribute('class', 'add-to-fleet');
-  $fleetBtn.textContent = 'Add to fleet';
   $shipContainer.appendChild($shipModel);
   $shipContainer.append($shipManufacturer);
   $shipContainer.append($shipClass);
@@ -161,7 +168,18 @@ function renderLocalStorage() {
     const $localStorage = document.createElement('li');
     $localStorage.setAttribute('class', 'fleet-rec');
     $localStorage.textContent = data.saveFleet[i].name;
+    const $minus = document.createElement('i');
+    $minus.setAttribute('class', 'fa-regular fa-square-minus');
+    $minus.addEventListener('click', (event) => {
+      const $eventTarget = event.target;
+      if ($eventTarget.tagName === 'I') {
+        $localStorage.remove();
+        $minus.remove();
+        data.saveFleet.push();
+      }
+    });
     $fleetList?.appendChild($localStorage);
+    $localStorage.appendChild($minus);
   }
 }
 renderLocalStorage();
