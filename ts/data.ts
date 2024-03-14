@@ -2,7 +2,6 @@
 interface StoredFleet {
   uid: string;
   name: string;
-  url: string;
 }
 
 interface Data {

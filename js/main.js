@@ -24,7 +24,6 @@ async function getStarShip() {
       throw new Error(`${response.status} failed to fetch data`);
     }
     const dataS = await response.json();
-    console.log(data);
     dataS.results.forEach((starship) => {
       $starShip?.appendChild(getShipName(starship));
     });
@@ -92,14 +91,6 @@ function getShipData(starship) {
   $shipContainer.append($fleetBtn);
   return $shipContainer;
 }
-function listOfFleet() {
-  for (let i = 0; i < data.saveFleet.length; i++) {
-    const $recList = document.createElement('li');
-    $recList.setAttribute('class', 'save-fleet');
-    $fleetList?.append($recList);
-    console.log($recList);
-  }
-}
 // fetch data for specific ship
 async function selectShip(uid) {
   const shipApi = `https://www.swapi.tech/api/starships/${uid}`;
@@ -162,3 +153,12 @@ $toFleet.addEventListener('click', (event) => {
     $fleet.className = 'fleet view';
   }
 });
+function renderLocalStorage() {
+  for (let i = 0; i < data.saveFleet.length; i++) {
+    const $localStorage = document.createElement('li');
+    $localStorage.setAttribute('class', 'fleet-rec');
+    $localStorage.textContent = `${data.saveFleet[i].name}`;
+    $fleetList?.appendChild($localStorage);
+  }
+}
+renderLocalStorage();

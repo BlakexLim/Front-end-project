@@ -41,7 +41,6 @@ async function getStarShip(): Promise<void> {
       throw new Error(`${response.status} failed to fetch data`);
     }
     const dataS = await response.json();
-    console.log(data);
     dataS.results.forEach((starship: StarShipName) => {
       $starShip?.appendChild(getShipName(starship));
     });
@@ -121,15 +120,6 @@ function getShipData(starship: StarShipData): HTMLLIElement {
   return $shipContainer;
 }
 
-// function listOfFleet() {
-//   for (let i = 0; i < data.saveFleet.length; i++) {
-//     const $recList = document.createElement('li');
-//     $recList.setAttribute('class', 'save-fleet');
-//     $fleetList?.append($recList);
-//     console.log($recList);
-//   }
-// }
-
 // fetch data for specific ship
 async function selectShip(uid: string): Promise<void> {
   const shipApi = `https://www.swapi.tech/api/starships/${uid}`;
@@ -157,6 +147,7 @@ $starShip.addEventListener('click', (event: Event) => {
     const eventAttr = $eventTarget.getAttribute('data-uid');
     if (!eventAttr) return;
     selectShip(eventAttr);
+
     // Change text color of selected ship to yellow
     for (let i = 0; i < $ships.length; i++) {
       if ($ships[i] === $eventTarget) {
@@ -195,3 +186,13 @@ $toFleet.addEventListener('click', (event: Event) => {
     $fleet.className = 'fleet view';
   }
 });
+
+function renderLocalStorage(): void {
+  for (let i = 0; i < data.saveFleet.length; i++) {
+    const $localStorage = document.createElement('li');
+    $localStorage.setAttribute('class', 'fleet-rec');
+    $localStorage.textContent = data.saveFleet[i].name;
+    $fleetList?.appendChild($localStorage);
+  }
+}
+renderLocalStorage();
