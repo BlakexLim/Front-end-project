@@ -1,18 +1,28 @@
 /* exported data */
-interface Todo {
-  todoId: string;
-  task: string;
-  isCompleted: boolean;
+interface Data {
+  currentShip: string | null;
 }
 
-let todos: Todo[] = [];
-const previousTodosJson = localStorage.getItem('javascript-local-storage');
+interface StoredFleet {
+  uid: string;
+  name: string;
+}
 
-if (previousTodosJson !== null) {
-  todos = JSON.parse(previousTodosJson);
+const data: Data = {
+  currentShip: 'current ship',
+};
+
+let storedFleet: StoredFleet[] = [];
+const previousStoredFleetJson = localStorage.getItem(
+  'javascript-local-storage',
+);
+
+if (previousStoredFleetJson !== null) {
+  storedFleet = JSON.parse(previousStoredFleetJson);
 }
 
 window.addEventListener('beforeunload', () => {
-  const todosJson = JSON.stringify(todos);
-  localStorage.setItem('Javascript-local-storage', todosJson);
+  const storedFleetJson = JSON.stringify(data);
+  console.log(storedFleet);
+  localStorage.setItem('Javascript-local-storage', storedFleetJson);
 });
