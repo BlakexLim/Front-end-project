@@ -13,12 +13,23 @@ interface StarShipData {
   cost_in_credits: string;
 }
 
-const $ul = document.querySelector('ul');
-if (!$ul) throw new Error('$ul query failed');
+const $hero = document.querySelector('.hero');
+const $fleet = document.querySelector('.fleet');
+const $shipList = document.querySelector('.ship-list');
+const $starShip = document.querySelector('.starships');
 const $rundown = document.querySelector('.rundown');
+const $add = document.querySelector('.fa-plus');
+const $toFleet = document.querySelector('.to-fleet');
+const $fleetList = document.querySelector('.fleet-list');
+
+if (!$hero) throw new Error('$hero query failed');
+if (!$fleet) throw new Error('$fleet query failed');
+if (!$shipList) throw new Error('$shipList query failed');
+if (!$starShip) throw new Error('$starShip query failed');
 if (!$rundown) throw new Error('$rundown query failed');
-const $model = document.getElementsByClassName('.model');
-if (!$model) throw new Error('$model query failed');
+if (!$add) throw new Error('$recruit query failed');
+if (!$toFleet) throw new Error('$toFleet query failed');
+if (!$fleetList) throw new Error('$fleetList query failed');
 
 const apiUrl = 'https://www.swapi.tech/api/starships/';
 
@@ -29,13 +40,17 @@ async function getStarShip(): Promise<void> {
     if (!response.ok) {
       throw new Error(`${response.status} failed to fetch data`);
     }
-    const data = await response.json();
-    data.results.forEach((starship: StarShipName) => {
-      $ul?.appendChild(getShipName(starship));
+    const dataS = await response.json();
+    dataS.results.forEach((starship: StarShipName) => {
+      $starShip?.appendChild(getShipName(starship));
     });
-    data.results.forEach((starship: StarShipData) => {
+    dataS.results.forEach((starship: StarShipData) => {
       getShipData(starship);
     });
+
+    for (let i = 0; i < 10; i++) {
+      data.fleet.push(dataS.results[i]);
+    }
   } catch (error) {
     console.error('Error fetching data');
     throw error;
@@ -76,8 +91,22 @@ function getShipData(starship: StarShipData): HTMLLIElement {
   const $shipCost = document.createElement('p');
   $shipCost.textContent = `Cost: ${starship.cost_in_credits}`;
 
+  // listen for click event to add starships to fleet page
   const $fleetBtn = document.createElement('button');
-
+  $fleetBtn.addEventListener('click', (event: Event) => {
+    const $eventTarget = event.target as HTMLElement;
+    if ($eventTarget.tagName === 'BUTTON') {
+      for (let i = 0; i < 10; i++) {
+        if (data.currentShip === data.fleet[i].name) {
+          const $recList = document.createElement('li');
+          $recList.setAttribute('class', 'fleet-rec');
+          $recList.textContent = data.currentShip;
+          $fleetList?.appendChild($recList);
+          data.saveFleet.push(data.fleet[i]);
+        }
+      }
+    }
+  });
   $fleetBtn.setAttribute('class', 'add-to-fleet');
   $fleetBtn.textContent = 'Add to fleet';
 
@@ -107,7 +136,7 @@ async function selectShip(uid: string): Promise<void> {
 }
 
 // Clicking Starship name will render data on the Rundown section
-$ul?.addEventListener('click', (event: Event) => {
+$starShip.addEventListener('click', (event: Event) => {
   const $eventTarget = event.target as HTMLLIElement;
   const $ships = document.querySelectorAll('.ship-name');
   const $data = document.querySelectorAll('.ship-data');
@@ -118,10 +147,12 @@ $ul?.addEventListener('click', (event: Event) => {
     const eventAttr = $eventTarget.getAttribute('data-uid');
     if (!eventAttr) return;
     selectShip(eventAttr);
+
     // Change text color of selected ship to yellow
     for (let i = 0; i < $ships.length; i++) {
       if ($ships[i] === $eventTarget) {
         $ships[i].className = 'ship-name show-clicked';
+        data.currentShip = $ships[i].textContent;
       } else {
         $ships[i].className = 'ship-name';
       }
@@ -136,3 +167,32 @@ $ul?.addEventListener('click', (event: Event) => {
     }
   }
 });
+
+// show landing page when clicking + button on fleet page, hide fleet page
+$add.addEventListener('click', (event: Event) => {
+  const $eventTarget = event.target as HTMLElement;
+  if ($eventTarget.tagName === 'I') {
+    $fleet.className = 'fleet hidden';
+    $hero.className = 'hero view';
+    $shipList.className = 'ship-list view';
+  }
+});
+// show fleet page when clicking fleet book on landing page, hide landing page
+$toFleet.addEventListener('click', (event: Event) => {
+  const $eventTarget = event.target as HTMLElement;
+  if ($eventTarget.tagName === 'I') {
+    $hero.className = 'hero hidden';
+    $shipList.className = 'ship-list hidden';
+    $fleet.className = 'fleet view';
+  }
+});
+
+function renderLocalStorage(): void {
+  for (let i = 0; i < data.saveFleet.length; i++) {
+    const $localStorage = document.createElement('li');
+    $localStorage.setAttribute('class', 'fleet-rec');
+    $localStorage.textContent = data.saveFleet[i].name;
+    $fleetList?.appendChild($localStorage);
+  }
+}
+renderLocalStorage();

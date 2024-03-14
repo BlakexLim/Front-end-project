@@ -1,10 +1,16 @@
 'use strict';
-let todos = [];
-const previousTodosJson = localStorage.getItem('javascript-local-storage');
-if (previousTodosJson !== null) {
-  todos = JSON.parse(previousTodosJson);
-}
+let data = {
+  currentShip: 'current ship',
+  saveFleet: [],
+  fleet: [],
+};
 window.addEventListener('beforeunload', () => {
-  const todosJson = JSON.stringify(todos);
-  localStorage.setItem('Javascript-local-storage', todosJson);
+  const storedFleetJson = JSON.stringify(data);
+  localStorage.setItem('Javascript-local-storage', storedFleetJson);
 });
+const previousStoredFleetJson = localStorage.getItem(
+  'Javascript-local-storage',
+);
+if (previousStoredFleetJson !== null) {
+  data = JSON.parse(previousStoredFleetJson);
+}

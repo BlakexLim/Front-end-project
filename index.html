@@ -13,9 +13,11 @@
       crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="hero">
+    <div class="hero hidden">
       <div class="fleet-icon">
-        <i class="fa-solid fa-book-journal-whills fa-2xl"></i>
+        <a class="to-fleet"
+          ><i class="fa-solid fa-book-journal-whills fa-2xl"></i
+        ></a>
       </div>
       <div class="container">
         <div class="column-title">
@@ -23,10 +25,24 @@
         </div>
       </div>
     </div>
-    <main class="ship-list">
+    <div class="fleet view">
+      <div class="container-hangar">
+        <img src="/images/hangar.jpg" class="fleet-hero" alt="hangar" />
+      </div>
+      <div class="fleet-entry">
+        <div class="fleet-page">
+          <h1 class="empty-msg hidden">Empty Fleet</h1>
+        </div>
+        <ul class="fleet-list"></ul>
+        <div class="recruit-icon">
+          <a><i class="fa-solid fa-plus fa-2xl"></i></a>
+        </div>
+      </div>
+    </div>
+    <main class="ship-list hidden">
       <div class="column-half">
-        <h2 class="starships">Starships</h2>
-        <ul></ul>
+        <h2>Starships</h2>
+        <ul class="starships"></ul>
         <div class="pagination">
           <i class="fa-solid fa-circle-chevron-left"></i>
           <i class="fa-solid fa-circle-chevron-right"></i>
