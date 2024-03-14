@@ -102,6 +102,9 @@ function getShipData(starship: StarShipData): HTMLLIElement {
           $recList.setAttribute('class', 'fleet-rec');
           $recList.textContent = data.currentShip;
           $fleetList?.appendChild($recList);
+          const $minus = document.createElement('i');
+          $minus.setAttribute('class', 'fa-regular fa-square-minus');
+          $recList.appendChild($minus);
           data.saveFleet.push(data.fleet[i]);
         }
       }
