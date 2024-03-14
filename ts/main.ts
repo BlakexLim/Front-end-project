@@ -40,13 +40,18 @@ async function getStarShip(): Promise<void> {
     if (!response.ok) {
       throw new Error(`${response.status} failed to fetch data`);
     }
-    const data = await response.json();
-    data.results.forEach((starship: StarShipName) => {
+    const dataS = await response.json();
+    console.log(data);
+    dataS.results.forEach((starship: StarShipName) => {
       $starShip?.appendChild(getShipName(starship));
     });
-    data.results.forEach((starship: StarShipData) => {
+    dataS.results.forEach((starship: StarShipData) => {
       getShipData(starship);
     });
+
+    for (let i = 0; i < 10; i++) {
+      data.fleet.push(dataS.results[i]);
+    }
   } catch (error) {
     console.error('Error fetching data');
     throw error;
@@ -92,11 +97,15 @@ function getShipData(starship: StarShipData): HTMLLIElement {
   $fleetBtn.addEventListener('click', (event: Event) => {
     const $eventTarget = event.target as HTMLElement;
     if ($eventTarget.tagName === 'BUTTON') {
-      const $recList = document.createElement('li');
-      $recList.setAttribute('class', 'fleet-rec');
-      $recList.textContent = data.currentShip;
-      $fleetList?.appendChild($recList);
-      // storedFleet.push();
+      for (let i = 0; i < 10; i++) {
+        if (data.currentShip === data.fleet[i].name) {
+          const $recList = document.createElement('li');
+          $recList.setAttribute('class', 'fleet-rec');
+          $recList.textContent = data.currentShip;
+          $fleetList?.appendChild($recList);
+          data.saveFleet.push(data.fleet[i]);
+        }
+      }
     }
   });
   $fleetBtn.setAttribute('class', 'add-to-fleet');
@@ -111,6 +120,15 @@ function getShipData(starship: StarShipData): HTMLLIElement {
   $shipContainer.append($fleetBtn);
   return $shipContainer;
 }
+
+// function listOfFleet() {
+//   for (let i = 0; i < data.saveFleet.length; i++) {
+//     const $recList = document.createElement('li');
+//     $recList.setAttribute('class', 'save-fleet');
+//     $fleetList?.append($recList);
+//     console.log($recList);
+//   }
+// }
 
 // fetch data for specific ship
 async function selectShip(uid: string): Promise<void> {
@@ -171,7 +189,6 @@ $add.addEventListener('click', (event: Event) => {
 // show fleet page when clicking fleet book on landing page, hide landing page
 $toFleet.addEventListener('click', (event: Event) => {
   const $eventTarget = event.target as HTMLElement;
-  console.log($eventTarget.tagName);
   if ($eventTarget.tagName === 'I') {
     $hero.className = 'hero hidden';
     $shipList.className = 'ship-list hidden';

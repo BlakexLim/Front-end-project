@@ -94,6 +94,10 @@ li {
   text-align: center;
 }
 
+.ship-name:hover {
+  color: rgba(118, 114, 114, 1);
+}
+
 .ship-data {
   color: rgba(118, 114, 114, 1);
   letter-spacing: 0.1rem;
