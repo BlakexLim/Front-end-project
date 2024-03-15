@@ -21,6 +21,7 @@ const $rundown = document.querySelector('.rundown');
 const $add = document.querySelector('.fa-plus');
 const $toFleet = document.querySelector('.to-fleet');
 const $fleetList = document.querySelector('.fleet-list');
+const $emptyMsg = document.querySelector('.empty-msg');
 
 if (!$hero) throw new Error('$hero query failed');
 if (!$fleet) throw new Error('$fleet query failed');
@@ -30,6 +31,7 @@ if (!$rundown) throw new Error('$rundown query failed');
 if (!$add) throw new Error('$recruit query failed');
 if (!$toFleet) throw new Error('$toFleet query failed');
 if (!$fleetList) throw new Error('$fleetList query failed');
+if (!$emptyMsg) throw new Error('$toggle query failed');
 
 const apiUrl = 'https://www.swapi.tech/api/starships/';
 
@@ -91,24 +93,47 @@ function getShipData(starship: StarShipData): HTMLLIElement {
   const $shipCost = document.createElement('p');
   $shipCost.textContent = `Cost: ${starship.cost_in_credits}`;
 
-  // listen for click event to add starships to fleet page
+  // add starships and a minus icon for each entry to fleet page, save to localStorage
   const $fleetBtn = document.createElement('button');
+  $fleetBtn.setAttribute('class', 'add-to-fleet');
+  $fleetBtn.textContent = 'Add to fleet';
   $fleetBtn.addEventListener('click', (event: Event) => {
     const $eventTarget = event.target as HTMLElement;
     if ($eventTarget.tagName === 'BUTTON') {
       for (let i = 0; i < 10; i++) {
-        if (data.currentShip === data.fleet[i].name) {
+        if (
+          data.currentShip === data.fleet[i].name &&
+          !data.saveFleet.includes(data.fleet[i])
+        ) {
           const $recList = document.createElement('li');
           $recList.setAttribute('class', 'fleet-rec');
           $recList.textContent = data.currentShip;
+
+          const $minus = document.createElement('i');
+          $minus.setAttribute('class', 'fa-regular fa-square-minus');
+          $minus.addEventListener('click', (event: Event) => {
+            const $eventTarget = event.target as HTMLElement;
+            const $closestLi = $eventTarget.closest('li');
+            for (let i = 0; i < data.saveFleet.length; i++) {
+              if ($eventTarget.tagName === 'I') {
+                if ($closestLi?.textContent === data.saveFleet[i].name) {
+                  data.saveFleet.splice(i, 1);
+                  $recList.remove();
+                  $minus.remove();
+                }
+              }
+            }
+            toggleNoShips();
+          });
+
           $fleetList?.appendChild($recList);
+          $recList.appendChild($minus);
           data.saveFleet.push(data.fleet[i]);
         }
       }
+      toggleNoShips();
     }
   });
-  $fleetBtn.setAttribute('class', 'add-to-fleet');
-  $fleetBtn.textContent = 'Add to fleet';
 
   $shipContainer.appendChild($shipModel);
   $shipContainer.append($shipManufacturer);
@@ -175,6 +200,7 @@ $add.addEventListener('click', (event: Event) => {
     $fleet.className = 'fleet hidden';
     $hero.className = 'hero view';
     $shipList.className = 'ship-list view';
+    toggleNoShips();
   }
 });
 // show fleet page when clicking fleet book on landing page, hide landing page
@@ -184,15 +210,45 @@ $toFleet.addEventListener('click', (event: Event) => {
     $hero.className = 'hero hidden';
     $shipList.className = 'ship-list hidden';
     $fleet.className = 'fleet view';
+    toggleNoShips();
   }
 });
 
+// show list of ships added to fleet after reload
 function renderLocalStorage(): void {
   for (let i = 0; i < data.saveFleet.length; i++) {
-    const $localStorage = document.createElement('li');
-    $localStorage.setAttribute('class', 'fleet-rec');
-    $localStorage.textContent = data.saveFleet[i].name;
-    $fleetList?.appendChild($localStorage);
+    const $fleetName = document.createElement('li');
+    $fleetName.setAttribute('class', 'fleet-rec');
+    $fleetName.textContent = data.saveFleet[i].name;
+    const $minus = document.createElement('i');
+    $minus.setAttribute('class', 'fa-regular fa-square-minus');
+    $minus.addEventListener('click', (event: Event) => {
+      const $eventTarget = event.target as HTMLElement;
+      const $closestLi = $eventTarget.closest('li');
+      for (let i = 0; i < data.saveFleet.length; i++) {
+        if ($eventTarget.tagName === 'I') {
+          if ($closestLi?.textContent === data.saveFleet[i].name) {
+            data.saveFleet.splice(i, 1);
+            $fleetName.remove();
+            $minus.remove();
+          }
+        }
+      }
+      toggleNoShips();
+    });
+
+    $fleetList?.appendChild($fleetName);
+    $fleetName.appendChild($minus);
   }
+  toggleNoShips();
 }
 renderLocalStorage();
+
+function toggleNoShips(): void {
+  if (!$emptyMsg) throw new Error('$toggle query failed');
+  if (data.saveFleet.length !== 0) {
+    $emptyMsg.className = 'empty-msg hidden';
+  } else {
+    $emptyMsg.className = 'empty-msg view';
+  }
+}

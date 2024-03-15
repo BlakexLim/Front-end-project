@@ -47,6 +47,16 @@ body {
   padding-bottom: 4rem;
 }
 
+.column-half {
+  width: 50%;
+}
+
+@media only screen and (width <= 600px) {
+  .column-half {
+    width: 100%;
+  }
+}
+
 .fleet-icon {
   text-align: right;
   padding-right: 2rem;
@@ -79,6 +89,8 @@ h2 {
 
 ul {
   padding: 0;
+  display: flex;
+  flex-flow: column wrap;
 }
 
 li {
@@ -108,6 +120,12 @@ li {
   color: rgba(17, 83, 181, 1);
   display: flex;
   justify-content: space-evenly;
+  padding: 1rem;
+}
+
+.fa-circle-chevron-left:hover,
+.fa-circle-chevron-right:hover {
+  color: rgb(6, 53, 124);
 }
 
 .add-to-fleet {
@@ -157,4 +175,18 @@ span {
   display: contents;
   max-width: 100%;
   height: 20vh;
+}
+
+.fa-square-minus,
+.fa-circle-minus {
+  color: rgba(227, 205, 0, 1);
+  padding-left: 0.5rem;
+}
+
+.fa-square-minus:hover {
+  color: rgb(151, 137, 5);
+}
+
+.fleet-rec {
+  padding-left: 0.5rem;
 }
