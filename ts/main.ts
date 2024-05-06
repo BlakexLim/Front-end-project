@@ -125,7 +125,7 @@ function getShipData(starship: StarShipData): HTMLLIElement {
             }
             toggleNoShips();
           });
-
+          alert(`${data.currentShip} added to the fleet`);
           $fleetList?.appendChild($recList);
           $recList.appendChild($minus);
           data.saveFleet.push(data.fleet[i]);
